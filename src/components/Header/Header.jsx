@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { selectCar } from '../../features/car/carSlice';
+import { selectCars } from '../../features/car/carSlice';
 import { useSelector } from 'react-redux';
 
 function Header() {
 
   const [burgerStatus, setburgerStatus] = useState(true)
 
-  const cars = useSelector(selectCar)
-  console.log(cars);
+  const cars = useSelector(selectCars);
+
+  // console.log(cars);
 
   return (
     <Container>
@@ -18,10 +19,13 @@ function Header() {
         <img src='/images/logo.svg' alt='logo' />
       </a>
       <Menu>
-        <a href="#modal-s">Model S</a>
+        {cars && cars.map((car, index) => (
+          <a href={'#'+index} key={index}>{car}</a>
+        ))}
+        {/* <a href="#modal-s">Model S</a>
         <a href="#modal-3">Model 3</a>
         <a href="#modal-x">Model X</a>
-        <a href="#modal-y">Model Y</a>
+        <a href="#modal-y">Model Y</a> */}
       </Menu>
       <RightMenu>
         <a href='#shop'>Shop</a>
